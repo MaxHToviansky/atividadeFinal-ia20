@@ -1,10 +1,14 @@
 import express from "express"
 import { RunResult } from "sqlite3"
 import database from "./database"
+import multer from 'multer'
+
 
 const port = 8080
 const app = express()
 const session: any = {}
+const upload = multer({ dest: 'images/' })
+const fs = require('fs').promises 
 
 // 
 app.use(express.json())
@@ -175,48 +179,51 @@ app.post("/api/logged/:sesid", (req, res) => {
 
 app.post("/api/logoff/:sesid", (req, res) => {
    delete session[req.params.sesid]
-   res.json({ "message": "success"})
+   res.json({ "message": "success" })
 })
 
 // Image Create
 
-app.post("/api/upload/image", (req, res) => {
+app.post("/api/upload/image", upload.single('avatar'), async function (req, res, next) {
    const errors = []
-   
-   if (!req.body.name){
+
+   if (!req.body.name) {
       errors.push("Image has no name.")
    }
-   if(req.body.type == "jpeg" || req.body.type == "png" || req.body.type == "jpg"){
-      errors.push("Image type not suported. Use jpeg or png.")
+   if (req.body.type == "jpeg" || req.body.type == "png" || req.body.type == "jpg") {
+      errors.push("Image type not suported. Use jpeg, png or jpg.")
    } else if (!req.body.type) {
       errors.push("File is typeless.")
    }
-   if(!req.body.image){
-      errors.push("No image was uploaded.")
+   if(!req.file){
+      errors.push("No file submitted")
    }
-   
    if (errors.length) {
       res.status(400).json({ "error": errors.join() })
       return;
    }
 
-   const { name, type, image } = req.body
-   const sql = 'INSERT INTO imagens (name, type, image) VALUES(?,?,?)'
-   const params = [name, type, image]
-   
+   const { name, type } = req.body
+   const sql = 'INSERT INTO imagens (name, type) VALUES(?,?)'
+   const params = [name, type]
 
-   database.run(sql, params, function (this: RunResult, err) {
+   database.run(sql, params, async function (this: RunResult, err) {
       if (err) {
          res.status(400).json({ "error": err.message })
          return
       }
-
+      
+      const oldName = __dirname + '/images/' + req.file?.filename
+      const newName = __dirname + '/images/' + this.lastID 
+      await fs.rename()
+      
       res.json({
          "message": "success",
-         "data": { name, type, image },
+         "data": { name, type },
          "id": this.lastID
       })
    })
+   
 })
 
 app.listen(port, () => console.log(`⚡ servidor ${port}`))

@@ -17,9 +17,7 @@ const db = new Database(
         CREATE TABLE IF NOT EXISTS imagens (
           id        INTEGER PRIMARY KEY AUTOINCREMENT,
           name      TEXT UNIQUE,
-          type      TEXT,
-          image     BLOB
-
+          type      TEXT
         )
       `,
       err => {
