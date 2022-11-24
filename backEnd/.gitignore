@@ -1,5 +1,6 @@
 node_modules/
 dist/
-images/
+images/*
+!images/Placeholder.txt
 package-lock.json
 db.sqlite

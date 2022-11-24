@@ -14,11 +14,6 @@ const db = new Database(
           email     TEXT UNIQUE, 
           password  TEXT
         )
-        CREATE TABLE IF NOT EXISTS imagens (
-          id        INTEGER PRIMARY KEY AUTOINCREMENT,
-          name      TEXT UNIQUE,
-          type      TEXT
-        )
       `,
       err => {
         if (err) 
@@ -27,6 +22,19 @@ const db = new Database(
         const insert = 'INSERT OR IGNORE INTO user (name, email, password) VALUES (?,?,?)'
         db.run(insert, ["admin", "admin@example.com", "123132"])
         db.run(insert, ["user", "user@example.com", "123123"])
+      }
+    )
+    db.run(
+      `
+        CREATE TABLE IF NOT EXISTS imagens (
+          id        INTEGER PRIMARY KEY AUTOINCREMENT,
+          name      TEXT UNIQUE,
+          type      TEXT
+        )
+      `, err => {
+        if(err) throw new Error(`Erro ao criar tabela 'imagens': ${err.message}`)
+          
+        
       }
     )
   }

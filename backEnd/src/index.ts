@@ -214,9 +214,17 @@ app.post("/api/upload/image", upload.single('avatar'), async function (req, res,
       }
       
       const oldName = __dirname + '/images/' + req.file?.filename
-      const newName = __dirname + '/images/' + this.lastID 
-      await fs.rename()
-      
+      const newName = __dirname + '/images/' + this.lastID + type
+      console.log("Old Path: " + oldName + "/n New Path: " + newName + "/n Name: " + name)
+      await fs.rename(oldName,newName)
+      const sqlPath = 'UPDATE imagens SET path = COALESCE(?,path) WHERE id = ?'
+
+      database.run(sqlPath, [newName, this.lastID], function (this: RunResult, err) {
+         if (err) {
+            res.status(400).json({ "error": err.message })
+            return
+         }
+      })
       res.json({
          "message": "success",
          "data": { name, type },
