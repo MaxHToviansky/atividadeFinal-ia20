@@ -204,8 +204,9 @@ app.post("/api/upload/image", upload.single('avatar'), async function (req, res,
    }
 
    const { name, type } = req.body
-   const sql = 'INSERT INTO imagens (name, type) VALUES(?,?)'
-   const params = [name, type]
+   const sql = 'INSERT INTO imagens (name, type, path) VALUES(?,?,?)'
+   const oldName = req.file?.destination
+   const params = [name, type, oldName]
 
    database.run(sql, params, async function (this: RunResult, err) {
       if (err) {
@@ -213,18 +214,18 @@ app.post("/api/upload/image", upload.single('avatar'), async function (req, res,
          return
       }
       
-      const oldName = __dirname + '/images/' + req.file?.filename
-      const newName = __dirname + '/images/' + this.lastID + type
-      console.log("Old Path: " + oldName + "/n New Path: " + newName + "/n Name: " + name)
-      await fs.rename(oldName,newName)
-      const sqlPath = 'UPDATE imagens SET path = COALESCE(?,path) WHERE id = ?'
+      // const oldName = __dirname + '/images/' + req.file?.filename
+      // const newName = __dirname + '/images/' + this.lastID + type
+      // console.log("Old Path: " + oldName + "/n New Path: " + newName + "/n Name: " + name)
+      // await fs.rename(oldName,newName)
+      // const sqlPath = 'UPDATE imagens SET path = COALESCE(?,path) WHERE id = ?'
 
-      database.run(sqlPath, [newName, this.lastID], function (this: RunResult, err) {
-         if (err) {
-            res.status(400).json({ "error": err.message })
-            return
-         }
-      })
+      // database.run(sqlPath, [newName, this.lastID], function (this: RunResult, err) {
+      //    if (err) {
+      //       res.status(400).json({ "error": err.message })
+      //       return
+      //    }
+      // })
       res.json({
          "message": "success",
          "data": { name, type },
