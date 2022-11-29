@@ -1,5 +1,6 @@
 import express from "express"
 import { RunResult } from "sqlite3"
+import cors from "cors"
 import database from "./database"
 import multer from 'multer'
 
@@ -11,6 +12,7 @@ const upload = multer({ dest: 'images/' })
 const fs = require('fs').promises 
 
 // 
+app.use(cors())
 app.use(express.json())
 
 // STATIC
@@ -184,54 +186,60 @@ app.post("/api/logoff/:sesid", (req, res) => {
 
 // Image Create
 
-app.post("/api/upload/image", upload.single('avatar'), async function (req, res, next) {
-   const errors = []
+app.post("/api/upload/image", 
+   upload.single('avatar'), 
+   async function (req, res, next) {
+      console.log(req.headers)
+      console.log(req.body)
+      console.log(req.file?.filename)
+      res.send("asdasdas")
+   // const errors = []
 
-   if (!req.body.name) {
-      errors.push("Image has no name.")
-   }
-   if (req.body.type == "jpeg" || req.body.type == "png" || req.body.type == "jpg") {
-      errors.push("Image type not suported. Use jpeg, png or jpg.")
-   } else if (!req.body.type) {
-      errors.push("File is typeless.")
-   }
-   if(!req.file){
-      errors.push("No file submitted")
-   }
-   if (errors.length) {
-      res.status(400).json({ "error": errors.join() })
-      return;
-   }
+   // if (!req.body.name) {
+   //    errors.push("Image has no name.")
+   // }
+   // if (req.body.type == "jpeg" || req.body.type == "png" || req.body.type == "jpg") {
+   //    errors.push("Image type not suported. Use jpeg, png or jpg.")
+   // } else if (!req.body.type) {
+   //    errors.push("File is typeless.")
+   // }
+   // if(!req.file){
+   //    errors.push("No file submitted")
+   // }
+   // if (errors.length) {
+   //    res.status(400).json({ "error": errors.join() })
+   //    return;
+   // }
 
-   const { name, type } = req.body
-   const sql = 'INSERT INTO imagens (name, type, path) VALUES(?,?,?)'
-   const oldName = req.file?.destination
-   const params = [name, type, oldName]
+   // const { name, type } = req.body
+   // const sql = 'INSERT INTO imagens (name, type, path) VALUES(?,?,?)'
+   // const oldName = req.file?.destination
+   // const params = [name, type, oldName]
 
-   database.run(sql, params, async function (this: RunResult, err) {
-      if (err) {
-         res.status(400).json({ "error": err.message })
-         return
-      }
+   // database.run(sql, params, async function (this: RunResult, err) {
+   //    if (err) {
+   //       res.status(400).json({ "error": err.message })
+   //       return
+   //    }
       
-      // const oldName = __dirname + '/images/' + req.file?.filename
-      // const newName = __dirname + '/images/' + this.lastID + type
-      // console.log("Old Path: " + oldName + "/n New Path: " + newName + "/n Name: " + name)
-      // await fs.rename(oldName,newName)
-      // const sqlPath = 'UPDATE imagens SET path = COALESCE(?,path) WHERE id = ?'
+   //    // const oldName = __dirname + '/images/' + req.file?.filename
+   //    // const newName = __dirname + '/images/' + this.lastID + type
+   //    // console.log("Old Path: " + oldName + "/n New Path: " + newName + "/n Name: " + name)
+   //    // await fs.rename(oldName,newName)
+   //    // const sqlPath = 'UPDATE imagens SET path = COALESCE(?,path) WHERE id = ?'
 
-      // database.run(sqlPath, [newName, this.lastID], function (this: RunResult, err) {
-      //    if (err) {
-      //       res.status(400).json({ "error": err.message })
-      //       return
-      //    }
-      // })
-      res.json({
-         "message": "success",
-         "data": { name, type },
-         "id": this.lastID
-      })
-   })
+   //    // database.run(sqlPath, [newName, this.lastID], function (this: RunResult, err) {
+   //    //    if (err) {
+   //    //       res.status(400).json({ "error": err.message })
+   //    //       return
+   //    //    }
+   //    // })
+   //    res.json({
+   //       "message": "success",
+   //       "data": { name, type },
+   //       "id": this.lastID
+   //    })
+   // })
    
 })
 
