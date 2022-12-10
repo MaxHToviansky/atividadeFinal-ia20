@@ -29,7 +29,8 @@ const db = new Database(
         CREATE TABLE IF NOT EXISTS imagens (
           id        INTEGER PRIMARY KEY AUTOINCREMENT,
           name      TEXT UNIQUE,
-          type      TEXT
+          type      TEXT,
+          path      TEXT UNIQUE
         )
       `, err => {
         if(err) throw new Error(`Erro ao criar tabela 'imagens': ${err.message}`)
@@ -39,5 +40,6 @@ const db = new Database(
     )
   }
 )
+console.log("created db")
 
 export default db
