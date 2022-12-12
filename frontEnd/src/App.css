@@ -1,6 +1,52 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  --colorNavBar: rgb(60,60,60);
+  --colorBackground: rgb(30,30,30);
+}
+
+#navBarBox {
+  width: 100vw;
+  height: 10vh;
+  margin: 0 auto;
+  position: sticky;
+  background-color: var(--colorNavBar);
+  text-align: center;
+  display: inline-block;
+}
+.buttonBox{
+  display: inline-block;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+.navButton{
+  margin: 2px;
+  border-color:var(--colorNavBar) ;
+  background-color: var(--colorNavBar);
+  cursor: pointer;
+  border: none;
+  float: right;
+}
+.navButton:active {
+  border: none;
+}
+#imagePlaceholder{
+  height: 70vh;
+  width: 50vw;
+  border: 1vw solid var(--colorNavBar);
+  border-radius: 1vw;
+  margin: auto;
+}
+.row{
+  margin: 1vw;
+}
+.imagePlaceholder{
+  border: 1vw solid var(--colorNavBar);
+  height: 25vh;
+  width: 35vw;
+  margin: 1vw;
+  display: inline-block;
+  vertical-align: top;
+  color: rgb(226,164,82);
+  font: 5vw bold;
 }
