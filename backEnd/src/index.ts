@@ -1,12 +1,15 @@
 import express from "express"
+
 import { RunResult } from "sqlite3"
 import cors from "cors"
 import database from "./database"
 import multer from 'multer'
+import path from 'path'
 
 
 const port = 8080
 const app = express()
+const __imgdirname = "C:/Users/Familía/Documents/GitHub/atividadeFinal-ia20/backEnd/"
 const session: any = {}
 
 // MULTER & FS
@@ -217,7 +220,7 @@ app.post("/api/upload/image", upload.single('avatar'), (req, res, err) => {
    }
 
    const Imagepath = "images/" + req.file.filename
-   const sql = "INSERT INTO imagens (path, type, name) VALUES(?,?,?)"
+   const sql = "INSERT INTO imagens (name, type, path) VALUES(?,?,?)"
    const params = [req.file.filename, req.file.mimetype, Imagepath]
 
    console.log("Before DB update \n File's mimetype: " + req.file.mimetype +
@@ -236,55 +239,19 @@ app.post("/api/upload/image", upload.single('avatar'), (req, res, err) => {
    })
 })
 
+// Image GET
 
-// const errors = []
-
-// if (!req.body.name) {
-//    errors.push("Image has no name.")
-// }
-// if (req.body.type == "jpeg" || req.body.type == "png" || req.body.type == "jpg") {
-//    errors.push("Image type not suported. Use jpeg, png or jpg.")
-// } else if (!req.body.type) {
-//    errors.push("File is typeless.")
-// }
-// if(!req.file){
-//    errors.push("No file submitted")
-// }
-// if (errors.length) {
-//    res.status(400).json({ "error": errors.join() })
-//    return;
-// }
-
-// const { name, type } = req.body
-// const sql = 'INSERT INTO imagens (name, type, path) VALUES(?,?,?)'
-// const oldName = req.file?.destination
-// const params = [name, type, oldName]
-
-// database.run(sql, params, async function (this: RunResult, err) {
-//    if (err) {
-//       res.status(400).json({ "error": err.message })
-//       return
-//    }
-
-//    // const oldName = __dirname + '/images/' + req.file?.filename
-//    // const newName = __dirname + '/images/' + this.lastID + type
-//    // console.log("Old Path: " + oldName + "/n New Path: " + newName + "/n Name: " + name)
-//    // await fs.rename(oldName,newName)
-//    // const sqlPath = 'UPDATE imagens SET path = COALESCE(?,path) WHERE id = ?'
-
-//    // database.run(sqlPath, [newName, this.lastID], function (this: RunResult, err) {
-//    //    if (err) {
-//    //       res.status(400).json({ "error": err.message })
-//    //       return
-//    //    }
-//    // })
-//    res.json({
-//       "message": "success",
-//       "data": { name, type },
-//       "id": this.lastID
-//    })
-// })
-
+app.get("/api/get/image/:id", (req,res) => {
+   const sql = "SELECT path FROM imagens WHERE id = ?"
+   database.get(sql, [req.params.id], (err, row) => {
+      if (err) {
+         res.status(400).json({ "error": err.message });
+         return
+      } 
+      console.log(row)
+      if(row != undefined) res.status(200).sendFile(path.join(__dirname,"../", row.path))
+   })
+})
 
 
 app.listen(port, () => console.log(`⚡ servidor ${port}`))
