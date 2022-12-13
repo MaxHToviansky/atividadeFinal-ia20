@@ -1,18 +1,24 @@
 import { useState } from 'react'
 import './App.css'
-import ImageTable from './components/imageTable'
-import ImageUpload from './components/imageUpload'
-import NavBar from './components/navBar'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import HomePage from './pages/homePage'
+import Cadastro from './components/loginComponents/Cadastro'
+import Login from './components/loginComponents/Login'
+import Teste from './components/loginComponents/Teste'
+import Update from './components/loginComponents/Update'
 
 function App() {
-  return (
-    <div id='mainDiv'>
-      <div>
-        <NavBar/>
-      </div>
-      <ImageTable/>
-    </div>
-  )
+  return <>
+  <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<HomePage/>}/>
+        <Route path='/Login' element={<Login/>}/>
+        <Route path='/Cadastro' element={<Cadastro/>}/>
+        <Route path='/Teste' element={<Teste/>}/>
+        <Route path='/Update' element={<Update/>}/>
+      </Routes>
+    </BrowserRouter>
+  </>
 }
 
 export default App
