@@ -5,13 +5,17 @@ import cors from "cors"
 import database from "./database"
 import multer from 'multer'
 import path from 'path'
-
+import { WebSocketServer } from 'ws'
 
 const port = 8080
 const app = express()
 const __imgdirname = "C:/Users/Familía/Documents/GitHub/atividadeFinal-ia20/backEnd/"
 const session: any = {}
 
+// WS
+const wss = new WebSocketServer({ port: 8090 })
+
+const wsList: any[] = []
 // MULTER & FS
 
 const storage = multer.diskStorage({
@@ -253,5 +257,18 @@ app.get("/api/get/image/:id", (req,res) => {
    })
 })
 
+// WebSocket
+
+wss.on('connection', ws => {
+   wsList.push(ws)
+ 
+   ws.on('message', data => {
+     wsList.forEach(cws => {
+       cws.send(data.toString())
+     })
+   })
+ 
+   ws.send('Oi como vai querido(a)!?')
+ })
 
 app.listen(port, () => console.log(`⚡ servidor ${port}`))
