@@ -259,6 +259,9 @@ app.get("/api/get/image/:id", (req,res) => {
 
 // WebSocket
 
+app.use("/Chat", express.static("../frontEnd/src/pages/ChatPage.html"))
+
+
 wss.on('connection', ws => {
    wsList.push(ws)
    console.log("Conected")

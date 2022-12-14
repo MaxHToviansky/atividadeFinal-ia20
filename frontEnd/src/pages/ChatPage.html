@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #root {
+            margin: auto;
+            text-align: center;
+            --colorNavBar: rgb(60, 60, 60);
+            --colorBackground: rgb(30, 30, 30);
+            --colorButtonText: rgb(36, 144, 170);
+        }
+
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            background-color: rgb(30, 30, 30);
+        }
+
+        body {
+            display: flex;
+        }
+
+        div {
+            color: rgb(36, 144, 170);
+        }
+
+        #display {
+            width: 30vw;
+            height: 70vh;
+            text-align: center;
+        }
+        #display>div{
+            margin: 1vh;
+            border: 0.3vh solid ;
+            border-radius: 1vh;
+        }
+        #mainDiv{
+            background-color: rgb(60, 60, 60);
+            display: inline-block;
+            margin: auto;
+            border-radius: 2vw;
+            justify-content: center;
+        }
+        form{
+            width: 30vw;
+            display: inline-block;
+            align-content: center;
+        }
+        input{
+            margin: 0 auto;
+        }
+        h1{
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mainDiv">
+        <h1>O Chat:</h1>
+        <form>
+            <input placeholder="Digite Aqui" name="msg">
+        </form>
+
+        <div id="display">
+        </div>
+    </div>
+    <script>
+        const display = document.querySelector("#display")
+        const form = document.querySelector("form")
+
+        var ws = new WebSocket('ws://127.0.0.1:8090')
+
+        ws.addEventListener("message", ev => {
+            const data = document.createElement("div")
+            data.innerHTML = ev.data
+            display.append(data)
+        })
+
+
+        form.addEventListener("submit", ev => {
+            ev.preventDefault()
+            ws.send(form.msg.value)
+            form.msg.value = ""
+        })
+
+    </script>
+</body>
+
+</html>
