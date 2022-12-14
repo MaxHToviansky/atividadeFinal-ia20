@@ -37,10 +37,7 @@ export default function () {
     alert("Cara! deu um erro tão foda, que eu nem sei o que foi!")
   }
 
-  console.log(sessionStorage.token)
 
-  if (sessionStorage.token == undefined) {
-    console.log(sessionStorage.token)
     return <>
       <div id="loginBox">
         <form onSubmit={enviarDados} id="loginForm">
@@ -50,26 +47,11 @@ export default function () {
           <div id="loginButtonDiv">
             <button type="submit" >Entrar</button>
             <button type="button" onClick={() => navigate("/Cadastro")}>Cadastrar-se</button>
-            <button type="button" onClick={() => navigate("/")} id="buttonHome">Pagina inicial</button>
-          </div>
-        </form>
-      </div>
-    </>
-  }else{
-    console.log(sessionStorage.token)
-    return <>
-      <div id="loginBox">
-        <form id="loginForm">
-          <h1>User</h1>
-          <Logged/>
-          <div id="loginButtonDiv">
             <button type="button" onClick={() => navigate("/Teste")}>Teste</button>
             <button type="button" onClick={() => navigate("/Update")}>Alterar Dados</button>
             <button type="button" onClick={() => navigate("/")} id="buttonHome">Pagina inicial</button>
-            <Logoff/>
           </div>
         </form>
       </div>
     </>
-  }
 }

@@ -261,8 +261,9 @@ app.get("/api/get/image/:id", (req,res) => {
 
 wss.on('connection', ws => {
    wsList.push(ws)
- 
+   console.log("Conected")
    ws.on('message', data => {
+      console.log("Conected")
      wsList.forEach(cws => {
        cws.send(data.toString())
      })
