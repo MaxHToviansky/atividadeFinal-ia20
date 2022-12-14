@@ -6,7 +6,7 @@ import Cadastro from './components/loginComponents/Cadastro'
 import Login from './components/loginComponents/Login'
 import Teste from './components/loginComponents/Teste'
 import Update from './components/loginComponents/Update'
-
+import ImageUpload from './components/imageUpload'
 
 function App() {
   return <>
@@ -17,6 +17,7 @@ function App() {
         <Route path='/Cadastro' element={<Cadastro/>}/>
         <Route path='/Teste' element={<Teste/>}/>
         <Route path='/Update' element={<Update/>}/>
+        <Route path='/Upload' element={<ImageUpload/>}/>
       </Routes>
     </BrowserRouter>
   </>

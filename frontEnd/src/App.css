@@ -21,7 +21,7 @@
   justify-content: center;
 }
 .navButton{
-  margin: 1vw 2vw;
+  margin: 0vw 1vw;
   border-color:var(--colorNavBar) ;
   background-color: var(--colorNavBar);
   cursor: pointer;
@@ -33,26 +33,18 @@
 .navButton:active {
   border: none;
 }
-#imagePlaceholder{
-  height: 70vh;
-  width: 50vw;
-  border: 1vw solid var(--colorNavBar);
-  border-radius: 1vw;
-  margin: auto;
-}
 .row{
   margin: 1vw;
 }
 .imagePlaceholder{
   border: 1vw solid var(--colorNavBar);
-  height: 25vh;
-  width: 35vw;
   margin: 1vw;
   display: inline-block;
   vertical-align: top;
   text-align: center;
   color: rgb(226,164,82);
   font: 4vw bold;
+  flex-flow: row wrap;
 }
 
 #loginBox{
@@ -191,4 +183,22 @@ button {
   background-color: rgb(51, 51, 51);
   cursor: pointer;
   transition: border-color 0.25s;
+}
+#uploadBox{
+  background-color: rgb(23, 23, 23);
+  height: 18vh;
+  border-radius: 20px;
+  display: inline-block;
+  color: rgb(187,134,161);
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+#imagefile{
+  display: flex;
+  flex-direction: column ;
+  align-items: center;
+}
+#imagefile>button{
+  color: rgb(226,164,82);
 }

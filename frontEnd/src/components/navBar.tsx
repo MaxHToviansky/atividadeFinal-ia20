@@ -7,7 +7,7 @@ export default function(){
     return <>
     <div id="navBarBox">
         <div className="buttonBox">
-            <button className="navButton"><img src={imgUploadFigure}></img></button>
+            <button className="navButton" onClick={() => navigate("/Upload")}><img src={imgUploadFigure}></img></button>
         </div>
         <div className="buttonBox">
             <button className="navButton" onClick={() => navigate("/Chat")}><img src={chatImg}></img></button>
