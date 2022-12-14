@@ -3,6 +3,7 @@
   text-align: center;
   --colorNavBar: rgb(60,60,60);
   --colorBackground: rgb(30,30,30);
+  --colorButtonText: rgb(36,144,170);
 }
 
 #navBarBox {
@@ -20,12 +21,14 @@
   justify-content: center;
 }
 .navButton{
-  margin: 2px;
+  margin: 1vw 2vw;
   border-color:var(--colorNavBar) ;
   background-color: var(--colorNavBar);
   cursor: pointer;
   border: none;
   float: right;
+  border-radius: 0;
+  padding: 0;
 }
 .navButton:active {
   border: none;
@@ -47,6 +50,133 @@
   margin: 1vw;
   display: inline-block;
   vertical-align: top;
+  text-align: center;
   color: rgb(226,164,82);
-  font: 5vw bold;
+  font: 4vw bold;
+}
+
+#loginBox{
+  background-color: rgb(23, 23, 23);
+  height: 270px;
+  border-radius: 20px;
+  color: rgb(187,134,161);
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#loginForm{
+  width: 300px;
+  display: flex;
+  flex-direction: column ;
+  align-items: center;
+}
+
+#loginForm>h1{
+  margin: 7px;
+  font-size: 3vw;
+}
+
+#loginForm>input{
+  padding: 5px;
+  margin: 5px;
+}
+
+#loginButtonDiv>button{
+  margin: 5px;
+  padding: 5px;
+  color: var(--colorButtonText);
+}
+
+#buttonHome{
+  width: 200px;
+}
+
+#cadastroBox{
+  background-color: rgb(28, 28, 28);
+  height: 320px;
+  border-radius: 20px;
+}
+
+#cadastroForm{
+  width: 300px;
+  display: flex;
+  flex-direction: column ;
+  align-items: center;
+}
+
+#cadastroForm>input{
+  padding: 5px;
+  margin: 5px;
+}
+
+#cadastroButtonDiv{
+  padding: 5px;
+  margin: 5px;
+}
+
+#cadastroButtonDiv>button{
+  padding: 5px;
+  margin: 5px;
+  color: var(--colorButtonText);
+}
+
+#testeBox{
+  background-color: rgb(28, 28, 28);
+  height: 230px;
+  border-radius: 20px;
+}
+
+#tituloTeste{
+  width: 250px;
+}
+.textoTeste{
+  margin: 14px;
+  padding: 1px;
+}
+
+#testeButtonDiv>button{
+  padding: 5px;
+  margin: 5px;
+  color: var(--colorButtonText);
+}
+
+#loginHome{
+  margin: 7px;
+  padding: 5px;
+}
+
+#updateForm{
+  width: 300px;
+  display: flex;
+  flex-direction: column ;
+  align-items: center;
+}
+
+#updateBox{
+  background-color: rgb(28, 28, 28);
+  height: 230px;
+  border-radius: 20px;
+}
+
+#updateForm>input{
+  padding: 5px;
+  margin: 5px;
+}
+
+#updateButtonDiv>button{
+  padding: 5px;
+  margin: 5px;
+  color: var(--colorButtonText);
+}
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: rgb(51, 51, 51);
+  cursor: pointer;
+  transition: border-color 0.25s;
 }
