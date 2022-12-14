@@ -93,9 +93,13 @@
 }
 
 #cadastroBox{
-  background-color: rgb(28, 28, 28);
+  background-color: rgb(23, 23, 23);
   height: 320px;
   border-radius: 20px;
+  color: rgb(187,134,161);
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #cadastroForm{
@@ -122,9 +126,13 @@
 }
 
 #testeBox{
-  background-color: rgb(28, 28, 28);
+  background-color: rgb(23, 23, 23);
   height: 230px;
   border-radius: 20px;
+  color: rgb(187,134,161);
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #tituloTeste{
@@ -154,9 +162,13 @@
 }
 
 #updateBox{
-  background-color: rgb(28, 28, 28);
+  background-color: rgb(23, 23, 23);
   height: 230px;
   border-radius: 20px;
+  color: rgb(187,134,161);
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 #updateForm>input{
